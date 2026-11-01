@@ -15,22 +15,17 @@
 :root{
  --bg:#10131a;
  --surface:#191f2b;
- --surface2:#202938;
+ --surface2:#222c3b;
  --border:#2b3545;
  --text:#f3f5fa;
  --muted:#a2adbd;
  --blue:#83b5ff;
- --blue-dark:#253b59;
- --green:#65c995;
+ --blue2:#253b59;
 }
 
-*{
- box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
-html{
- scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
  margin:0;
@@ -41,9 +36,9 @@ body{
  font-weight:500;
 }
 
-button,input{
- font:inherit;
-}
+button,input{font:inherit}
+
+button{cursor:pointer}
 
 .wrap{
  width:min(1120px,calc(100% - 40px));
@@ -56,7 +51,7 @@ header{
  height:76px;
  position:sticky;
  top:0;
- z-index:10;
+ z-index:20;
  background:#10131af2;
  backdrop-filter:blur(15px);
  border-bottom:1px solid var(--border);
@@ -70,12 +65,11 @@ header{
 }
 
 .brand{
+ color:white;
  text-decoration:none;
- color:#fff;
  font-size:23px;
  font-weight:900;
  white-space:nowrap;
- letter-spacing:.3px;
 }
 
 .search{
@@ -89,19 +83,13 @@ header{
  background:#1d2532;
  border:1px solid var(--border);
  border-radius:15px;
- transition:.2s;
 }
 
 .search:focus-within{
  border-color:#659ce9;
- background:#222d3d;
- box-shadow:0 0 0 3px #83b5ff15;
 }
 
-.search span{
- color:var(--blue);
- font-size:23px;
-}
+.search span{color:var(--blue);font-size:23px}
 
 .search input{
  width:100%;
@@ -113,9 +101,7 @@ header{
  font-weight:600;
 }
 
-.search input::placeholder{
- color:#8995a8;
-}
+.search input::placeholder{color:#8995a8}
 
 .header-link{
  margin-right:auto;
@@ -125,15 +111,9 @@ header{
  font-weight:700;
 }
 
-.header-link:hover{
- color:var(--blue);
-}
-
 /* MAIN */
 
-main{
- padding:30px 0 75px;
-}
+main{padding:30px 0 75px}
 
 .tabs{
  display:flex;
@@ -171,7 +151,7 @@ h1{
  margin:0 0 25px;
 }
 
-/* FEATURED APP */
+/* FEATURED */
 
 .featured{
  display:grid;
@@ -219,6 +199,7 @@ h1{
  justify-content:center;
  align-items:center;
  padding:10px 25px;
+ border:0;
  border-radius:12px;
  background:#83b5ff;
  color:#101827;
@@ -259,7 +240,7 @@ h1{
  border-radius:27px;
 }
 
-/* APPLICATIONS */
+/* APP GRID */
 
 .section-head{
  display:flex;
@@ -296,17 +277,29 @@ h1{
  background:var(--surface);
  border:1px solid var(--border);
  border-radius:18px;
- transition:.2s;
+ transition:.25s;
 }
 
 .app:hover{
  background:#202938;
  border-color:#496b98;
- transform:translateY(-2px);
+ transform:translateY(-3px);
 }
 
-.app-icon,
-.app-placeholder{
+.app-open{
+ display:flex;
+ align-items:center;
+ gap:15px;
+ flex:1;
+ min-width:0;
+ padding:0;
+ border:0;
+ background:transparent;
+ color:inherit;
+ text-align:right;
+}
+
+.app-icon,.app-placeholder{
  width:63px;
  height:63px;
  border-radius:17px;
@@ -323,10 +316,7 @@ h1{
  font-weight:900;
 }
 
-.app-info{
- flex:1;
- min-width:0;
-}
+.app-info{flex:1;min-width:0}
 
 .app-info h3{
  margin:0 0 3px;
@@ -357,23 +347,16 @@ h1{
  border:1px solid #45658d;
  background:#243a56;
  color:#a9ceff;
- text-decoration:none;
  border-radius:10px;
  font-size:12px;
  font-weight:900;
  white-space:nowrap;
- transition:.2s;
-}
-
-.app-action:hover{
- background:#304d70;
 }
 
 .app-action.disabled{
  background:#252c37;
  border-color:#384251;
  color:#929eae;
- cursor:default;
 }
 
 .empty{
@@ -384,7 +367,162 @@ h1{
  color:var(--muted);
 }
 
-/* ABOUT */
+/* APP DETAILS */
+
+#details{
+ display:none;
+ animation:pageIn .35s ease both;
+}
+
+#details.visible{display:block}
+
+@keyframes pageIn{
+ from{opacity:0;transform:translateY(14px)}
+ to{opacity:1;transform:translateY(0)}
+}
+
+.back-button{
+ display:inline-flex;
+ align-items:center;
+ gap:9px;
+ padding:9px 17px;
+ margin-bottom:22px;
+ border:1px solid var(--border);
+ border-radius:11px;
+ background:var(--surface);
+ color:var(--text);
+ font-size:13px;
+ font-weight:800;
+}
+
+.back-button:hover{
+ background:var(--surface2);
+}
+
+.detail-card{
+ overflow:hidden;
+ border:1px solid var(--border);
+ border-radius:22px;
+ background:var(--surface);
+}
+
+.detail-top{
+ display:flex;
+ align-items:center;
+ gap:24px;
+ padding:30px;
+ background:linear-gradient(120deg,#1d2c41,#192331);
+}
+
+.detail-icon{
+ width:112px;
+ height:112px;
+ object-fit:cover;
+ border-radius:25px;
+ box-shadow:0 12px 28px #0006;
+ flex:none;
+}
+
+.detail-placeholder{
+ width:112px;
+ height:112px;
+ border-radius:25px;
+ display:grid;
+ place-items:center;
+ background:#2a405e;
+ color:#a9ceff;
+ font-size:42px;
+ font-weight:900;
+ flex:none;
+}
+
+.detail-heading h2{
+ font-size:28px;
+ font-weight:900;
+ margin:0 0 4px;
+}
+
+.detail-heading p{
+ color:#b5c2d3;
+ font-size:13px;
+ margin:0;
+}
+
+.detail-body{padding:28px 30px}
+
+.detail-body h3{
+ font-size:19px;
+ font-weight:900;
+ margin:0 0 10px;
+}
+
+.detail-description{
+ color:#b5c0d0;
+ font-size:14px;
+ font-weight:600;
+ line-height:2;
+ margin:0 0 24px;
+}
+
+.feature-list{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:12px;
+ margin-bottom:26px;
+}
+
+.feature-item{
+ padding:13px 15px;
+ background:#202938;
+ border:1px solid #303d50;
+ border-radius:12px;
+ color:#d8e1ef;
+ font-size:13px;
+ font-weight:700;
+}
+
+.feature-item::before{
+ content:"✓";
+ color:var(--blue);
+ margin-left:8px;
+ font-weight:900;
+}
+
+.detail-download{
+ display:inline-flex;
+ justify-content:center;
+ align-items:center;
+ padding:12px 28px;
+ border-radius:12px;
+ background:#83b5ff;
+ color:#101827;
+ text-decoration:none;
+ font-size:14px;
+ font-weight:900;
+ transition:.2s;
+}
+
+.detail-download:hover{
+ background:#a5ccff;
+ transform:translateY(-2px);
+}
+
+.detail-download.disabled{
+ background:#303b4b;
+ color:#a3afc0;
+ cursor:default;
+ pointer-events:none;
+}
+
+.detail-status{
+ display:block;
+ margin-top:12px;
+ color:var(--muted);
+ font-size:12px;
+ font-weight:600;
+}
+
+/* ABOUT & FOOTER */
 
 .about{
  margin-top:50px;
@@ -405,10 +543,7 @@ h1{
  font-size:14px;
  font-weight:600;
  margin:0;
- max-width:700px;
 }
-
-/* FOOTER */
 
 footer{
  border-top:1px solid var(--border);
@@ -429,14 +564,9 @@ footer{
 
 @media(max-width:700px){
 
- .wrap{
-  width:calc(100% - 30px);
- }
+ .wrap{width:calc(100% - 30px)}
 
- header{
-  height:auto;
-  min-height:68px;
- }
+ header{height:auto;min-height:68px}
 
  .header-inner{
   gap:13px;
@@ -444,9 +574,7 @@ footer{
   padding:12px 0;
  }
 
- .brand{
-  font-size:20px;
- }
+ .brand{font-size:20px}
 
  .search{
   order:2;
@@ -455,22 +583,13 @@ footer{
   height:44px;
  }
 
- .header-link{
-  display:none;
- }
+ .header-link{display:none}
 
- main{
-  padding-top:20px;
- }
+ main{padding-top:20px}
 
- .tabs{
-  gap:23px;
-  margin-bottom:25px;
- }
+ .tabs{gap:23px;margin-bottom:25px}
 
- h1{
-  font-size:23px;
- }
+ h1{font-size:23px}
 
  .featured{
   grid-template-columns:1fr;
@@ -487,12 +606,9 @@ footer{
   order:2;
  }
 
- .feature-copy h2{
-  font-size:25px;
- }
+ .feature-copy h2{font-size:25px}
 
- .feature-icon,
- .placeholder{
+ .feature-icon,.placeholder{
   width:95px;
   height:95px;
   border-radius:23px;
@@ -506,31 +622,47 @@ footer{
  .app{
   min-height:103px;
   padding:14px;
-  gap:12px;
+  gap:10px;
   border-radius:16px;
  }
 
- .app-icon,
- .app-placeholder{
+ .app-open{gap:12px}
+
+ .app-icon,.app-placeholder{
   width:55px;
   height:55px;
   border-radius:14px;
  }
 
- .app-info h3{
-  font-size:15px;
+ .app-info h3{font-size:15px}
+
+ .app-action{padding:7px 12px}
+
+ .detail-top{
+  padding:22px;
+  gap:16px;
  }
 
- .app-action{
-  padding:7px 12px;
+ .detail-icon,.detail-placeholder{
+  width:82px;
+  height:82px;
+  border-radius:19px;
  }
 
- .section-head h2{
-  font-size:19px;
- }
+ .detail-heading h2{font-size:23px}
 
- .about{
-  padding:20px;
+ .detail-body{padding:22px}
+
+ .feature-list{grid-template-columns:1fr}
+
+ .about{padding:20px}
+}
+
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{
+  scroll-behavior:auto!important;
+  animation-duration:.01ms!important;
+  transition-duration:.01ms!important;
  }
 }
 </style>
@@ -541,9 +673,7 @@ footer{
 <header>
  <div class="wrap header-inner">
 
-  <a class="brand" href="#">
-   SariToolset
-  </a>
+  <a class="brand" href="#" id="brandHome">SariToolset</a>
 
   <label class="search">
    <span aria-hidden="true">⌕</span>
@@ -555,164 +685,230 @@ footer{
    >
   </label>
 
-  <a class="header-link" href="#apps">التطبيقات</a>
+  <a class="header-link" href="#apps" id="headerApps">التطبيقات</a>
 
  </div>
 </header>
 
 <main class="wrap">
 
- <nav class="tabs" aria-label="التنقل">
-  <a class="active" href="#home">الرئيسية</a>
-  <a href="#apps">التطبيقات</a>
-  <a href="#about">حول المتجر</a>
+ <nav class="tabs" id="navigation">
+  <a class="active" href="#home" data-tab="home">الرئيسية</a>
+  <a href="#apps" data-tab="apps">التطبيقات</a>
+  <a href="#about" data-tab="about">حول المتجر</a>
  </nav>
 
- <section id="home">
+ <!-- HOME -->
 
-  <h1>اكتشف تطبيقات SariToolset</h1>
+ <div id="homePage">
 
-  <p class="sub">
-   أدوات عملية، في مكان واحد.
-  </p>
+  <section id="home">
 
-  <article class="featured">
+   <h1>اكتشف تطبيقات SariToolset</h1>
 
-   <div class="feature-copy">
+   <p class="sub">
+    أدوات عملية وتجارب مختلفة، في مكان واحد.
+   </p>
 
-    <div class="eyebrow">التطبيق المميز</div>
+   <article class="featured">
 
-    <h2>Sari VPN</h2>
+    <div class="feature-copy">
 
-    <p>
-     اتصال VPN سهل الاستخدام من SariToolset.
-     تعرّف على التطبيق وحمّله مباشرة.
-    </p>
+     <div class="eyebrow">التطبيق المميز</div>
 
-    <a
-     class="primary"
-     href="https://drive.google.com/uc?export=download&id=1REdf44l_SuUdrhzvTJJ1b7ax3i3wCu1B"
-    >
+     <h2>Sari VPN</h2>
+
+     <p>
+      اتصال VPN سهل الاستخدام من SariToolset.
+      تعرّف على التطبيق وحمّله مباشرة.
+     </p>
+
+     <button class="primary" onclick="openApp('vpn')">
+      اكتشف التطبيق
+     </button>
+
+    </div>
+
+    <div class="feature-art">
+
+     <img
+      class="feature-icon"
+      src="sari-vpn-icon-512.png"
+      alt="Sari VPN"
+      onerror="this.replaceWith(makePlaceholder('S'))"
+     >
+
+    </div>
+
+   </article>
+
+  </section>
+
+  <!-- APPS -->
+
+  <section id="apps">
+
+   <div class="section-head">
+    <h2>جميع التطبيقات</h2>
+    <span id="count">4 تطبيقات</span>
+   </div>
+
+   <div class="apps" id="appList">
+
+    <!-- VPN -->
+
+    <article class="app" data-name="sari vpn vpn حماية اتصال خصوصية">
+
+     <button class="app-open" onclick="openApp('vpn')">
+
+      <img
+       class="app-icon"
+       src="sari-vpn-icon-512.png"
+       alt="Sari VPN"
+       onerror="this.replaceWith(makePlaceholder('S'))"
+      >
+
+      <div class="app-info">
+       <h3>Sari VPN</h3>
+       <p>اتصال VPN وأدوات الخصوصية</p>
+       <div class="app-meta">أدوات · Android</div>
+      </div>
+
+     </button>
+
+     <span class="app-action">التفاصيل</span>
+
+    </article>
+
+    <!-- DUB -->
+
+    <article class="app" data-name="sari dub ترجمة فيديو ترجمة">
+
+     <button class="app-open" onclick="openApp('dub')">
+
+      <div class="app-placeholder">D</div>
+
+      <div class="app-info">
+       <h3>SARI DUB</h3>
+       <p>ترجمة ودبلجة الفيديوهات</p>
+       <div class="app-meta">وسائط · Android</div>
+      </div>
+
+     </button>
+
+     <span class="app-action">التفاصيل</span>
+
+    </article>
+
+    <!-- IDE -->
+
+    <article class="app" data-name="sari ide برمجة محرر اكواد تطوير">
+
+     <button class="app-open" onclick="openApp('ide')">
+
+      <div class="app-placeholder">I</div>
+
+      <div class="app-info">
+       <h3>SARI IDE</h3>
+       <p>بيئة تطوير وأدوات برمجية</p>
+       <div class="app-meta">أدوات المطورين · Android</div>
+      </div>
+
+     </button>
+
+     <span class="app-action">التفاصيل</span>
+
+    </article>
+
+    <!-- ASTRO -->
+
+    <article class="app" data-name="sari astro فلك تصوير نجوم تكديس صور">
+
+     <button class="app-open" onclick="openApp('astro')">
+
+      <img
+       class="app-icon"
+       src="Sari%20astro_2.jpg"
+       alt="SARI Astro"
+       onerror="this.replaceWith(makePlaceholder('A'))"
+      >
+
+      <div class="app-info">
+       <h3>SARI Astro</h3>
+       <p>التصوير الفلكي ومعالجة الصور</p>
+       <div class="app-meta">تصوير فلكي · Android</div>
+      </div>
+
+     </button>
+
+     <span class="app-action">التفاصيل</span>
+
+    </article>
+
+    <div class="empty" id="empty">
+     لا توجد تطبيقات تطابق بحثك.
+    </div>
+
+   </div>
+
+  </section>
+
+  <!-- ABOUT -->
+
+  <section id="about" class="about">
+
+   <h2>عن SariToolset</h2>
+
+   <p>
+    مجموعة من التطبيقات والأدوات التي تطورها SariToolset
+    لتقديم تجارب بسيطة وعملية.
+    يتم نشر روابط التحميل ومعلومات الإصدارات هنا عند توفرها.
+   </p>
+
+  </section>
+
+ </div>
+
+ <!-- APPLICATION DETAILS -->
+
+ <section id="details">
+
+  <button class="back-button" onclick="backToApps()">
+   ← العودة إلى التطبيقات
+  </button>
+
+  <div class="detail-card">
+
+   <div class="detail-top">
+
+    <div id="detailIcon"></div>
+
+    <div class="detail-heading">
+     <h2 id="detailName"></h2>
+     <p id="detailCategory"></p>
+    </div>
+
+   </div>
+
+   <div class="detail-body">
+
+    <h3>عن التطبيق</h3>
+
+    <p class="detail-description" id="detailDescription"></p>
+
+    <h3>مميزات التطبيق</h3>
+
+    <div class="feature-list" id="detailFeatures"></div>
+
+    <a id="detailDownload" class="detail-download" href="#">
      تحميل التطبيق
     </a>
 
-   </div>
+    <span class="detail-status" id="detailStatus"></span>
 
-   <div class="feature-art">
-
-    <img
-     class="feature-icon"
-     src="sari-vpn-icon-512.png"
-     alt="أيقونة Sari VPN"
-     onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'placeholder',textContent:'S'}))"
-    >
-
-   </div>
-
-  </article>
-
- </section>
-
- <section id="apps">
-
-  <div class="section-head">
-   <h2>جميع التطبيقات</h2>
-   <span id="count">4 تطبيقات</span>
-  </div>
-
-  <div class="apps" id="appList">
-
-   <!-- SARI VPN -->
-
-   <article class="app" data-name="sari vpn vpn حماية اتصال خصوصية">
-
-    <img
-     class="app-icon"
-     src="sari-vpn-icon-512.png"
-     alt="Sari VPN"
-     onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'app-placeholder',textContent:'S'}))"
-    >
-
-    <div class="app-info">
-     <h3>Sari VPN</h3>
-     <p>اتصال VPN وأدوات الخصوصية</p>
-     <div class="app-meta">أدوات · Android</div>
-    </div>
-
-    <a
-     class="app-action"
-     href="https://drive.google.com/uc?export=download&id=1REdf44l_SuUdrhzvTJJ1b7ax3i3wCu1B"
-    >
-     تحميل
-    </a>
-
-   </article>
-
-   <!-- SARI DUB -->
-
-   <article class="app" data-name="sari dub ترجمة فيديو ترجمة">
-
-    <div class="app-placeholder">D</div>
-
-    <div class="app-info">
-     <h3>SARI DUB</h3>
-     <p>ترجمة ودبلجة الفيديوهات</p>
-     <div class="app-meta">وسائط · Android</div>
-    </div>
-
-    <span class="app-action disabled">قريباً</span>
-
-   </article>
-
-   <!-- SARI IDE -->
-
-   <article class="app" data-name="sari ide برمجة محرر اكواد تطوير">
-
-    <div class="app-placeholder">I</div>
-
-    <div class="app-info">
-     <h3>SARI IDE</h3>
-     <p>بيئة تطوير وأدوات برمجية</p>
-     <div class="app-meta">أدوات المطورين · Android</div>
-    </div>
-
-    <span class="app-action disabled">قريباً</span>
-
-   </article>
-
-   <!-- SARI ASTRO -->
-
-   <article class="app" data-name="sari astro فلك تصوير نجوم">
-
-    <div class="app-placeholder">A</div>
-
-    <div class="app-info">
-     <h3>SARI Astro</h3>
-     <p>التصوير الفلكي ومعالجة الصور</p>
-     <div class="app-meta">تصوير · Android</div>
-    </div>
-
-    <span class="app-action disabled">قريباً</span>
-
-   </article>
-
-   <div class="empty" id="empty">
-    لا توجد تطبيقات تطابق بحثك.
    </div>
 
   </div>
-
- </section>
-
- <section id="about" class="about">
-
-  <h2>عن SariToolset</h2>
-
-  <p>
-   مجموعة من التطبيقات والأدوات التي تطورها SariToolset
-   لتقديم تجارب بسيطة وعملية.
-   يتم نشر روابط التحميل ومعلومات الإصدارات هنا عند توفرها.
-  </p>
 
  </section>
 
@@ -726,39 +922,288 @@ footer{
 </footer>
 
 <script>
-const search = document.getElementById('search');
 
-const cards = [
- ...document.querySelectorAll('.app')
-];
+/* APP DATA */
 
-const empty = document.getElementById('empty');
-const count = document.getElementById('count');
+const apps = {
 
-search.addEventListener('input', () => {
+ vpn:{
+  name:"Sari VPN",
+  category:"أدوات الاتصال والخصوصية · Android",
+  icon:"sari-vpn-icon-512.png",
+  description:
+   "تطبيق Sari VPN من مجموعة SariToolset، يوفر واجهة سهلة لإدارة اتصال VPN والوصول إلى إعدادات الاتصال والخوادم المتاحة داخل التطبيق.",
+  features:[
+   "واجهة سهلة الاستخدام",
+   "إدارة إعدادات الاتصال",
+   "دعم إعدادات الخوادم",
+   "تصميم مناسب للهاتف"
+  ],
+  download:"https://drive.google.com/uc?export=download&id=1REdf44l_SuUdrhzvTJJ1b7ax3i3wCu1B",
+  available:true
+ },
 
- const q = search.value.trim().toLocaleLowerCase();
+ dub:{
+  name:"SARI DUB",
+  category:"الترجمة والوسائط · Android",
+  icon:null,
+  letter:"D",
+  description:
+   "تطبيق لترجمة ودبلجة الفيديوهات، يهدف إلى تسهيل تحويل المحتوى إلى لغات مختلفة مع أدوات للتعامل مع ملفات الترجمة والصوت.",
+  features:[
+   "ترجمة الفيديوهات",
+   "إنشاء ملفات SRT",
+   "التعامل مع الصوت",
+   "أدوات الدبلجة"
+  ],
+  download:null,
+  available:false
+ },
 
- let n =f 0;
+ ide:{
+  name:"SARI IDE",
+  category:"أدوات المطورين والبرمجة · Android",
+  icon:null,
+  letter:"I",
+  description:
+   "بيئة تطوير مخصصة للهاتف من مجموعة SariToolset، توفر مساحة للعمل مع المشاريع البرمجية وكتابة الأكواد وأدوات التطوير.",
+  features:[
+   "تحرير الأكواد",
+   "إدارة المشاريع",
+   "أدوات المطورين",
+   "واجهة مناسبة للهاتف"
+  ],
+  download:null,
+  available:false
+ },
 
- cards.forEach(card => {
+ astro:{
+  name:"SARI Astro",
+  category:"التصوير الفلكي ومعالجة الصور · Android",
+  icon:"Sari%20astro_2.jpg",
+  letter:"A",
+  description:
+   "SARI Astro تطبيق للتصوير الفلكي ومعالجة صور السماء. يساعد على التقاط صور الأجرام السماوية وتحسين التفاصيل باستخدام محاذاة الصور وتقنيات التكديس، بهدف إبراز النجوم والتفاصيل الفلكية بصورة أوضح.",
+  features:[
+   "التصوير الفلكي",
+   "استيراد الصور لمعالجتها",
+   "محاذاة الصور الفلكية",
+   "تكديس الصور Stacking",
+   "تحسين تفاصيل النجوم",
+   "معالجة الصور الفلكية"
+  ],
+  download:"https://drive.google.com/uc?export=download&id=1hGxBrTKxnPPfu4ROkq5B-Fcq2ILM4CgG",
+  available:true
+ }
 
-  const show = card.dataset.name.includes(q);
+};
 
-  card.style.display = show ? 'flex' : 'none';
+/* ELEMENTS */
 
-  if(show) n++;
+const homePage=document.getElementById("homePage");
+const details=document.getElementById("details");
+
+const detailIcon=document.getElementById("detailIcon");
+const detailName=document.getElementById("detailName");
+const detailCategory=document.getElementById("detailCategory");
+const detailDescription=document.getElementById("detailDescription");
+const detailFeatures=document.getElementById("detailFeatures");
+const detailDownload=document.getElementById("detailDownload");
+const detailStatus=document.getElementById("detailStatus");
+
+/* PLACEHOLDER */
+
+function makePlaceholder(letter){
+
+ const div=document.createElement("div");
+ div.className="app-placeholder";
+ div.textContent=letter;
+
+ return div;
+}
+
+/* OPEN APP DETAILS */
+
+function openApp(id){
+
+ const app=apps[id];
+
+ if(!app)return;
+
+ homePage.style.display="none";
+
+ details.classList.remove("visible");
+
+ detailIcon.replaceChildren();
+
+ if(app.icon){
+
+  const img=document.createElement("img");
+
+  img.src=app.icon;
+  img.alt=app.name;
+  img.className="detail-icon";
+
+  img.onerror=()=>{
+   img.replaceWith(makePlaceholder(app.letter||"S"));
+  };
+
+  detailIcon.appendChild(img);
+
+ }else{
+
+  const placeholder=makePlaceholder(app.letter||"S");
+  placeholder.className="detail-placeholder";
+
+  detailIcon.appendChild(placeholder);
+
+ }
+
+ detailName.textContent=app.name;
+ detailCategory.textContent=app.category;
+ detailDescription.textContent=app.description;
+
+ detailFeatures.replaceChildren();
+
+ app.features.forEach(feature=>{
+
+  const item=document.createElement("div");
+
+  item.className="feature-item";
+  item.textContent=feature;
+
+  detailFeatures.appendChild(item);
 
  });
 
- empty.style.display = n ? 'none' : 'block';
+ if(app.available && app.download){
 
- count.textContent = n + ' تطبيقات';
+  detailDownload.href=app.download;
+  detailDownload.classList.remove("disabled");
+  detailDownload.textContent="تحميل التطبيق";
+  detailDownload.style.display="inline-flex";
+  detailStatus.textContent="رابط التحميل متاح.";
+
+ }else{
+
+  detailDownload.removeAttribute("href");
+  detailDownload.classList.add("disabled");
+  detailDownload.textContent="قريباً";
+  detailDownload.style.display="inline-flex";
+  detailStatus.textContent="سيتم توفير رابط التحميل عند صدور التطبيق.";
+
+ }
+
+ details.style.display="block";
+
+ requestAnimationFrame(()=>{
+  details.classList.add("visible");
+ });
+
+ window.scrollTo({
+  top:0,
+  behavior:"smooth"
+ });
+
+}
+
+/* BACK TO APPS */
+
+function backToApps(){
+
+ details.classList.remove("visible");
+
+ setTimeout(()=>{
+
+  details.style.display="none";
+  homePage.style.display="block";
+
+  document.getElementById("apps").scrollIntoView({
+   behavior:"smooth"
+  });
+
+ },180);
+
+}
+
+/* SEARCH */
+
+const search=document.getElementById("search");
+
+const cards=[...document.querySelectorAll(".app")];
+
+const empty=document.getElementById("empty");
+const count=document.getElementById("count");
+
+search.addEventListener("input",()=>{
+
+ const q=search.value.trim().toLocaleLowerCase();
+
+ let n=0;
+
+ cards.forEach(card=>{
+
+  const show=card.dataset.name.includes(q);
+
+  card.style.display=show?"flex":"none";
+
+  if(show)n++;
+
+ });
+
+ empty.style.display=n?"none":"block";
+
+ count.textContent=n+" تطبيقات";
 
 });
 
-document.getElementById('year').textContent =
+/* NAVIGATION */
+
+document.querySelectorAll("[data-tab]").forEach(tab=>{
+
+ tab.addEventListener("click",()=>{
+
+  document.querySelectorAll("[data-tab]").forEach(item=>{
+   item.classList.remove("active");
+  });
+
+  tab.classList.add("active");
+
+  if(tab.dataset.tab==="home"){
+   backToHome();
+  }
+
+ });
+
+});
+
+function backToHome(){
+
+ details.style.display="none";
+ details.classList.remove("visible");
+
+ homePage.style.display="block";
+
+ window.scrollTo({
+  top:0,
+  behavior:"smooth"
+ });
+
+}
+
+document.getElementById("brandHome").addEventListener("click",e=>{
+ e.preventDefault();
+ backToHome();
+});
+
+document.getElementById("headerApps").addEventListener("click",e=>{
+ e.preventDefault();
+ backToApps();
+});
+
+document.getElementById("year").textContent=
  new Date().getFullYear();
+
 </script>
 
 </body>
