@@ -1,122 +1,765 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#10131a">
 <title>SariToolset — متجر التطبيقات</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
 <style>
-:root{--blue:#1769e0;--ink:#202124;--muted:#687078;--line:#e8eaed;--bg:#fff;--soft:#f6f8fc;--green:#188038}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Cairo",Arial,sans-serif;line-height:1.55}
-button,input{font:inherit}.wrap{width:min(1120px,calc(100% - 40px));margin:auto}
-header{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:28px;position:sticky;top:0;background:#ffffffed;backdrop-filter:blur(12px);z-index:5}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-size:20px;font-weight:800;white-space:nowrap}
-.brandmark{width:38px;height:38px;border-radius:12px;background:#e8f0fe;color:var(--blue);display:grid;place-items:center;font-size:21px;font-weight:800}
-.search{height:46px;max-width:520px;flex:1;background:#f1f3f4;border:1px solid transparent;border-radius:28px;display:flex;align-items:center;padding:0 17px;gap:10px}
-.search:focus-within{background:#fff;border-color:#9bbcf4;box-shadow:0 1px 4px #00000012}
-.search input{border:0;outline:0;background:transparent;width:100%;font-size:14px;color:var(--ink)}
-.header-link{margin-right:auto;text-decoration:none;color:var(--muted);font-size:14px}
-main{padding:28px 0 70px}
-.tabs{display:flex;gap:28px;border-bottom:1px solid var(--line);margin-bottom:30px;overflow:auto}
-.tabs a{padding:0 2px 13px;text-decoration:none;color:var(--muted);white-space:nowrap;font-size:14px;font-weight:600}
-.tabs a.active{color:var(--blue);border-bottom:3px solid var(--blue)}
-h1{font-size:28px;line-height:1.35;margin:0 0 7px;font-weight:800}
-.sub{color:var(--muted);font-size:14px;margin:0 0 24px}
-.featured{display:grid;grid-template-columns:1.1fr .9fr;min-height:250px;background:#f3f7ff;border-radius:22px;overflow:hidden;margin-bottom:42px}
-.feature-copy{padding:30px 34px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
-.eyebrow{font-size:12px;color:var(--blue);font-weight:800;margin-bottom:8px}
-.feature-copy h2{font-size:27px;margin:0 0 8px}
-.feature-copy p{font-size:14px;color:#5f6873;margin:0 0 18px;max-width:430px}
-.primary{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:22px;background:var(--blue);color:white;padding:9px 23px;text-decoration:none;font-weight:700;font-size:14px;cursor:pointer}
-.primary:hover{background:#0b57c5}
-.feature-art{display:grid;place-items:center;background:linear-gradient(135deg,#e4edff,#d3e2ff)}
-.feature-icon{width:116px;height:116px;border-radius:28px;object-fit:cover;box-shadow:0 12px 28px #174ea633}
-.placeholder{width:116px;height:116px;border-radius:28px;background:#fff;color:var(--blue);display:grid;place-items:center;font-size:46px;font-weight:800;box-shadow:0 12px 28px #174ea622}
-.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:16px}
-.section-head h2{font-size:21px;margin:0;font-weight:800}
-.section-head span{font-size:12px;color:var(--muted)}
-.apps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 38px}
-.app{display:flex;align-items:center;gap:15px;padding:17px 0;border-bottom:1px solid var(--line);min-width:0}
-.app-icon{width:58px;height:58px;border-radius:16px;object-fit:cover;flex:none;background:#eef3fb}
-.app-placeholder{width:58px;height:58px;border-radius:16px;background:#edf3ff;color:var(--blue);display:grid;place-items:center;font-size:23px;font-weight:800;flex:none}
-.app-info{min-width:0;flex:1}
-.app-info h3{font-size:15px;margin:0 0 2px;font-weight:700}
-.app-info p{font-size:12px;color:var(--muted);margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.app-meta{font-size:11px;color:#7a828a;margin-top:4px}
-.app-action{border:1px solid #d7e3f8;background:#f7faff;color:var(--blue);border-radius:20px;padding:6px 15px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap}
-.app-action.disabled{color:#858b91;background:#f7f7f7;border-color:#e7e7e7;cursor:default}
-.empty{display:none;text-align:center;padding:45px 15px;color:var(--muted);grid-column:1/-1}
-footer{border-top:1px solid var(--line);padding:24px 0;color:var(--muted);font-size:12px}
-.footer-inner{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+:root{
+ --bg:#10131a;
+ --surface:#191f2b;
+ --surface2:#202938;
+ --border:#2b3545;
+ --text:#f3f5fa;
+ --muted:#a2adbd;
+ --blue:#83b5ff;
+ --blue-dark:#253b59;
+ --green:#65c995;
+}
+
+*{
+ box-sizing:border-box;
+}
+
+html{
+ scroll-behavior:smooth;
+}
+
+body{
+ margin:0;
+ background:var(--bg);
+ color:var(--text);
+ font-family:"Cairo",Arial,sans-serif;
+ line-height:1.65;
+ font-weight:500;
+}
+
+button,input{
+ font:inherit;
+}
+
+.wrap{
+ width:min(1120px,calc(100% - 40px));
+ margin:auto;
+}
+
+/* HEADER */
+
+header{
+ height:76px;
+ position:sticky;
+ top:0;
+ z-index:10;
+ background:#10131af2;
+ backdrop-filter:blur(15px);
+ border-bottom:1px solid var(--border);
+}
+
+.header-inner{
+ height:100%;
+ display:flex;
+ align-items:center;
+ gap:30px;
+}
+
+.brand{
+ text-decoration:none;
+ color:#fff;
+ font-size:23px;
+ font-weight:900;
+ white-space:nowrap;
+ letter-spacing:.3px;
+}
+
+.search{
+ flex:1;
+ max-width:540px;
+ height:47px;
+ display:flex;
+ align-items:center;
+ gap:12px;
+ padding:0 18px;
+ background:#1d2532;
+ border:1px solid var(--border);
+ border-radius:15px;
+ transition:.2s;
+}
+
+.search:focus-within{
+ border-color:#659ce9;
+ background:#222d3d;
+ box-shadow:0 0 0 3px #83b5ff15;
+}
+
+.search span{
+ color:var(--blue);
+ font-size:23px;
+}
+
+.search input{
+ width:100%;
+ border:0;
+ outline:0;
+ background:transparent;
+ color:white;
+ font-size:14px;
+ font-weight:600;
+}
+
+.search input::placeholder{
+ color:#8995a8;
+}
+
+.header-link{
+ margin-right:auto;
+ color:var(--muted);
+ text-decoration:none;
+ font-size:14px;
+ font-weight:700;
+}
+
+.header-link:hover{
+ color:var(--blue);
+}
+
+/* MAIN */
+
+main{
+ padding:30px 0 75px;
+}
+
+.tabs{
+ display:flex;
+ gap:30px;
+ overflow:auto;
+ border-bottom:1px solid var(--border);
+ margin-bottom:30px;
+}
+
+.tabs a{
+ text-decoration:none;
+ color:var(--muted);
+ white-space:nowrap;
+ padding:0 2px 13px;
+ font-size:14px;
+ font-weight:700;
+}
+
+.tabs a.active{
+ color:var(--blue);
+ border-bottom:3px solid var(--blue);
+}
+
+h1{
+ font-size:29px;
+ font-weight:900;
+ margin:0 0 5px;
+ color:#fff;
+}
+
+.sub{
+ color:var(--muted);
+ font-size:14px;
+ font-weight:600;
+ margin:0 0 25px;
+}
+
+/* FEATURED APP */
+
+.featured{
+ display:grid;
+ grid-template-columns:1.1fr .9fr;
+ min-height:260px;
+ overflow:hidden;
+ margin-bottom:45px;
+ border-radius:23px;
+ border:1px solid #30415a;
+ background:linear-gradient(115deg,#192638,#233650,#192638);
+}
+
+.feature-copy{
+ padding:32px;
+ display:flex;
+ flex-direction:column;
+ align-items:flex-start;
+ justify-content:center;
+}
+
+.eyebrow{
+ color:#9cc5ff;
+ font-size:13px;
+ font-weight:800;
+ margin-bottom:8px;
+}
+
+.feature-copy h2{
+ color:white;
+ font-size:30px;
+ font-weight:900;
+ margin:0 0 8px;
+}
+
+.feature-copy p{
+ color:#c0cada;
+ font-size:14px;
+ font-weight:600;
+ margin:0 0 20px;
+ max-width:430px;
+}
+
+.primary{
+ display:inline-flex;
+ justify-content:center;
+ align-items:center;
+ padding:10px 25px;
+ border-radius:12px;
+ background:#83b5ff;
+ color:#101827;
+ text-decoration:none;
+ font-size:14px;
+ font-weight:900;
+ transition:.2s;
+}
+
+.primary:hover{
+ background:#a5ccff;
+ transform:translateY(-2px);
+}
+
+.feature-art{
+ display:grid;
+ place-items:center;
+ background:radial-gradient(circle,#344f72,#1b293d 75%);
+}
+
+.feature-icon{
+ width:120px;
+ height:120px;
+ object-fit:cover;
+ border-radius:27px;
+ box-shadow:0 15px 35px #0008;
+}
+
+.placeholder{
+ width:120px;
+ height:120px;
+ display:grid;
+ place-items:center;
+ background:#263c59;
+ color:#a8ccff;
+ font-size:45px;
+ font-weight:900;
+ border-radius:27px;
+}
+
+/* APPLICATIONS */
+
+.section-head{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ margin-bottom:19px;
+}
+
+.section-head h2{
+ font-size:22px;
+ font-weight:900;
+ margin:0;
+}
+
+.section-head span{
+ color:var(--muted);
+ font-size:13px;
+ font-weight:700;
+}
+
+.apps{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:15px;
+}
+
+.app{
+ display:flex;
+ align-items:center;
+ gap:15px;
+ min-width:0;
+ min-height:115px;
+ padding:17px;
+ background:var(--surface);
+ border:1px solid var(--border);
+ border-radius:18px;
+ transition:.2s;
+}
+
+.app:hover{
+ background:#202938;
+ border-color:#496b98;
+ transform:translateY(-2px);
+}
+
+.app-icon,
+.app-placeholder{
+ width:63px;
+ height:63px;
+ border-radius:17px;
+ flex:none;
+ object-fit:cover;
+}
+
+.app-placeholder{
+ display:grid;
+ place-items:center;
+ background:#25364f;
+ color:#a8ccff;
+ font-size:25px;
+ font-weight:900;
+}
+
+.app-info{
+ flex:1;
+ min-width:0;
+}
+
+.app-info h3{
+ margin:0 0 3px;
+ color:#f5f7fb;
+ font-size:16px;
+ font-weight:900;
+}
+
+.app-info p{
+ margin:0;
+ color:#a5b0c0;
+ font-size:12px;
+ font-weight:600;
+ white-space:nowrap;
+ overflow:hidden;
+ text-overflow:ellipsis;
+}
+
+.app-meta{
+ margin-top:5px;
+ color:#8492a6;
+ font-size:11px;
+ font-weight:600;
+}
+
+.app-action{
+ padding:7px 15px;
+ border:1px solid #45658d;
+ background:#243a56;
+ color:#a9ceff;
+ text-decoration:none;
+ border-radius:10px;
+ font-size:12px;
+ font-weight:900;
+ white-space:nowrap;
+ transition:.2s;
+}
+
+.app-action:hover{
+ background:#304d70;
+}
+
+.app-action.disabled{
+ background:#252c37;
+ border-color:#384251;
+ color:#929eae;
+ cursor:default;
+}
+
+.empty{
+ display:none;
+ grid-column:1/-1;
+ text-align:center;
+ padding:45px;
+ color:var(--muted);
+}
+
+/* ABOUT */
+
+.about{
+ margin-top:50px;
+ padding:25px;
+ background:var(--surface);
+ border:1px solid var(--border);
+ border-radius:18px;
+}
+
+.about h2{
+ margin:0 0 8px;
+ font-size:21px;
+ font-weight:900;
+}
+
+.about p{
+ color:var(--muted);
+ font-size:14px;
+ font-weight:600;
+ margin:0;
+ max-width:700px;
+}
+
+/* FOOTER */
+
+footer{
+ border-top:1px solid var(--border);
+ padding:25px 0;
+ color:var(--muted);
+ font-size:12px;
+ font-weight:600;
+}
+
+.footer-inner{
+ display:flex;
+ justify-content:space-between;
+ gap:15px;
+ flex-wrap:wrap;
+}
+
+/* MOBILE */
+
 @media(max-width:700px){
- .wrap{width:min(100% - 32px,560px)}header{height:66px;gap:12px}.brand{font-size:17px}.brandmark{width:34px;height:34px}.header-link{display:none}
- main{padding-top:20px}.tabs{gap:23px;margin-bottom:24px}
- h1{font-size:24px}.featured{grid-template-columns:1fr;min-height:0}.feature-copy{padding:23px 22px 20px;order:2}.feature-copy h2{font-size:23px}.feature-art{height:145px;order:1}.feature-icon,.placeholder{width:88px;height:88px;border-radius:23px}
- .apps{grid-template-columns:1fr}.app{gap:12px;padding:14px 0}.app-icon,.app-placeholder{width:52px;height:52px;border-radius:14px}.app-action{padding:6px 12px}
- .section-head h2{font-size:19px}
+
+ .wrap{
+  width:calc(100% - 30px);
+ }
+
+ header{
+  height:auto;
+  min-height:68px;
+ }
+
+ .header-inner{
+  gap:13px;
+  flex-wrap:wrap;
+  padding:12px 0;
+ }
+
+ .brand{
+  font-size:20px;
+ }
+
+ .search{
+  order:2;
+  flex-basis:100%;
+  max-width:none;
+  height:44px;
+ }
+
+ .header-link{
+  display:none;
+ }
+
+ main{
+  padding-top:20px;
+ }
+
+ .tabs{
+  gap:23px;
+  margin-bottom:25px;
+ }
+
+ h1{
+  font-size:23px;
+ }
+
+ .featured{
+  grid-template-columns:1fr;
+  min-height:auto;
+ }
+
+ .feature-art{
+  height:155px;
+  order:1;
+ }
+
+ .feature-copy{
+  padding:23px;
+  order:2;
+ }
+
+ .feature-copy h2{
+  font-size:25px;
+ }
+
+ .feature-icon,
+ .placeholder{
+  width:95px;
+  height:95px;
+  border-radius:23px;
+ }
+
+ .apps{
+  grid-template-columns:1fr;
+  gap:12px;
+ }
+
+ .app{
+  min-height:103px;
+  padding:14px;
+  gap:12px;
+  border-radius:16px;
+ }
+
+ .app-icon,
+ .app-placeholder{
+  width:55px;
+  height:55px;
+  border-radius:14px;
+ }
+
+ .app-info h3{
+  font-size:15px;
+ }
+
+ .app-action{
+  padding:7px 12px;
+ }
+
+ .section-head h2{
+  font-size:19px;
+ }
+
+ .about{
+  padding:20px;
+ }
 }
 </style>
 </head>
+
 <body>
+
 <header>
- <div class="wrap" style="display:flex;align-items:center;gap:24px;width:min(1120px,calc(100% - 40px))">
-  <a class="brand" href="#"><span class="brandmark">S</span><span>SariToolset</span></a>
-  <label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="ابحث عن التطبيقات" aria-label="ابحث عن التطبيقات"></label>
+ <div class="wrap header-inner">
+
+  <a class="brand" href="#">
+   SariToolset
+  </a>
+
+  <label class="search">
+   <span aria-hidden="true">⌕</span>
+   <input
+    id="search"
+    type="search"
+    placeholder="ابحث عن التطبيقات"
+    aria-label="ابحث عن التطبيقات"
+   >
+  </label>
+
   <a class="header-link" href="#apps">التطبيقات</a>
+
  </div>
 </header>
+
 <main class="wrap">
+
  <nav class="tabs" aria-label="التنقل">
-  <a class="active" href="#home">الرئيسية</a><a href="#apps">التطبيقات</a><a href="#about">حول المتجر</a>
+  <a class="active" href="#home">الرئيسية</a>
+  <a href="#apps">التطبيقات</a>
+  <a href="#about">حول المتجر</a>
  </nav>
+
  <section id="home">
+
   <h1>اكتشف تطبيقات SariToolset</h1>
-  <p class="sub">أدوات عملية، في مكان واحد.</p>
+
+  <p class="sub">
+   أدوات عملية، في مكان واحد.
+  </p>
+
   <article class="featured">
+
    <div class="feature-copy">
+
     <div class="eyebrow">التطبيق المميز</div>
+
     <h2>Sari VPN</h2>
-    <p>اتصال VPN سهل الاستخدام من SariToolset. تعرّف على التطبيق وحمّله مباشرة.</p>
-    <a class="primary" href="https://drive.google.com/uc?export=download&id=1REdf44l_SuUdrhzvTJJ1b7ax3i3wCu1B">تحميل التطبيق</a>
+
+    <p>
+     اتصال VPN سهل الاستخدام من SariToolset.
+     تعرّف على التطبيق وحمّله مباشرة.
+    </p>
+
+    <a
+     class="primary"
+     href="https://drive.google.com/uc?export=download&id=1REdf44l_SuUdrhzvTJJ1b7ax3i3wCu1B"
+    >
+     تحميل التطبيق
+    </a>
+
    </div>
+
    <div class="feature-art">
-    <img class="feature-icon" src="sari-vpn-icon-512.png" alt="أيقونة Sari VPN" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'placeholder',textContent:'S'}))">
+
+    <img
+     class="feature-icon"
+     src="sari-vpn-icon-512.png"
+     alt="أيقونة Sari VPN"
+     onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'placeholder',textContent:'S'}))"
+    >
+
    </div>
+
   </article>
+
  </section>
+
  <section id="apps">
-  <div class="section-head"><h2>جميع التطبيقات</h2><span id="count">4 تطبيقات</span></div>
-  <div class="apps" id="appList">
-   <article class="app" data-name="sari vpn vpn حماية اتصال خصوصية">
-    <img class="app-icon" src="sari-vpn-icon-512.png" alt="" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'app-placeholder',textContent:'S'}))">
-    <div class="app-info"><h3>Sari VPN</h3><p>اتصال VPN وأدوات الخصوصية</p><div class="app-meta">أدوات · Android</div></div>
-    <a class="app-action" href="https://drive.google.com/uc?export=download&id=1REdf44l_SuUdrhzvTJJ1b7ax3i3wCu1B">تحميل</a>
-   </article>
-   <article class="app" data-name="sari dub ترجمة فيديو ترجمة">
-    <div class="app-placeholder">D</div><div class="app-info"><h3>SARI DUB</h3><p>ترجمة ودبلجة الفيديوهات</p><div class="app-meta">وسائط · Android</div></div><span class="app-action disabled">قريباً</span>
-   </article>
-   <article class="app" data-name="sari ide برمجة محرر اكواد تطوير">
-    <div class="app-placeholder">I</div><div class="app-info"><h3>SARI IDE</h3><p>بيئة تطوير وأدوات برمجية</p><div class="app-meta">أدوات المطورين · Android</div></div><span class="app-action disabled">قريباً</span>
-   </article>
-   <article class="app" data-name="sari astro فلك تصوير نجوم">
-    <div class="app-placeholder">A</div><div class="app-info"><h3>SARI Astro</h3><p>التصوير الفلكي ومعالجة الصور</p><div class="app-meta">تصوير · Android</div></div><span class="app-action disabled">قريباً</span>
-   </article>
-   <div class="empty" id="empty">لا توجد تطبيقات تطابق بحثك.</div>
+
+  <div class="section-head">
+   <h2>جميع التطبيقات</h2>
+   <span id="count">4 تطبيقات</span>
   </div>
+
+  <div class="apps" id="appList">
+
+   <!-- SARI VPN -->
+
+   <article class="app" data-name="sari vpn vpn حماية اتصال خصوصية">
+
+    <img
+     class="app-icon"
+     src="sari-vpn-icon-512.png"
+     alt="Sari VPN"
+     onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'app-placeholder',textContent:'S'}))"
+    >
+
+    <div class="app-info">
+     <h3>Sari VPN</h3>
+     <p>اتصال VPN وأدوات الخصوصية</p>
+     <div class="app-meta">أدوات · Android</div>
+    </div>
+
+    <a
+     class="app-action"
+     href="https://drive.google.com/uc?export=download&id=1REdf44l_SuUdrhzvTJJ1b7ax3i3wCu1B"
+    >
+     تحميل
+    </a>
+
+   </article>
+
+   <!-- SARI DUB -->
+
+   <article class="app" data-name="sari dub ترجمة فيديو ترجمة">
+
+    <div class="app-placeholder">D</div>
+
+    <div class="app-info">
+     <h3>SARI DUB</h3>
+     <p>ترجمة ودبلجة الفيديوهات</p>
+     <div class="app-meta">وسائط · Android</div>
+    </div>
+
+    <span class="app-action disabled">قريباً</span>
+
+   </article>
+
+   <!-- SARI IDE -->
+
+   <article class="app" data-name="sari ide برمجة محرر اكواد تطوير">
+
+    <div class="app-placeholder">I</div>
+
+    <div class="app-info">
+     <h3>SARI IDE</h3>
+     <p>بيئة تطوير وأدوات برمجية</p>
+     <div class="app-meta">أدوات المطورين · Android</div>
+    </div>
+
+    <span class="app-action disabled">قريباً</span>
+
+   </article>
+
+   <!-- SARI ASTRO -->
+
+   <article class="app" data-name="sari astro فلك تصوير نجوم">
+
+    <div class="app-placeholder">A</div>
+
+    <div class="app-info">
+     <h3>SARI Astro</h3>
+     <p>التصوير الفلكي ومعالجة الصور</p>
+     <div class="app-meta">تصوير · Android</div>
+    </div>
+
+    <span class="app-action disabled">قريباً</span>
+
+   </article>
+
+   <div class="empty" id="empty">
+    لا توجد تطبيقات تطابق بحثك.
+   </div>
+
+  </div>
+
  </section>
- <section id="about" style="margin-top:48px">
-  <div class="section-head"><h2>عن SariToolset</h2></div>
-  <p class="sub" style="max-width:650px;margin-bottom:0">مجموعة من التطبيقات والأدوات التي تطورها SariToolset لتقديم تجارب بسيطة وعملية. يتم نشر روابط التحميل ومعلومات الإصدارات هنا عند توفرها.</p>
+
+ <section id="about" class="about">
+
+  <h2>عن SariToolset</h2>
+
+  <p>
+   مجموعة من التطبيقات والأدوات التي تطورها SariToolset
+   لتقديم تجارب بسيطة وعملية.
+   يتم نشر روابط التحميل ومعلومات الإصدارات هنا عند توفرها.
+  </p>
+
  </section>
+
 </main>
-<footer><div class="wrap footer-inner"><span>© <span id="year"></span> SariToolset</span><span>متجر تطبيقات SariToolset</span></div></footer>
+
+<footer>
+ <div class="wrap footer-inner">
+  <span>© <span id="year"></span> SariToolset</span>
+  <span>متجر تطبيقات SariToolset</span>
+ </div>
+</footer>
+
 <script>
-const search=document.getElementById('search'),cards=[...document.querySelectorAll('.app')],empty=document.getElementById('empty'),count=document.getElementById('count');
-search.addEventListener('input',()=>{const q=search.value.trim().toLocaleLowerCase();let n=0;cards.forEach(card=>{const show=card.dataset.name.includes(q);card.style.display=show?'flex':'none';if(show)n++});empty.style.display=n?'none':'block';count.textContent=n+' تطبيقات'});
-document.getElementById('year').textContent=new Date().getFullYear();
+const search = document.getElementById('search');
+
+const cards = [
+ ...document.querySelectorAll('.app')
+];
+
+const empty = document.getElementById('empty');
+const count = document.getElementById('count');
+
+search.addEventListener('input', () => {
+
+ const q = search.value.trim().toLocaleLowerCase();
+
+ let n =f 0;
+
+ cards.forEach(card => {
+
+  const show = card.dataset.name.includes(q);
+
+  card.style.display = show ? 'flex' : 'none';
+
+  if(show) n++;
+
+ });
+
+ empty.style.display = n ? 'none' : 'block';
+
+ count.textContent = n + ' تطبيقات';
+
+});
+
+document.getElementById('year').textContent =
+ new Date().getFullYear();
 </script>
+
 </body>
 </html>
