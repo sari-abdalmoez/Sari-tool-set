@@ -1,1209 +1,534 @@
-
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#10131a">
-<title>SariToolset — متجر التطبيقات</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f5f7">
+<meta name="description" content="SariToolset — apps">
+<title>SariToolset</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root{
- --bg:#10131a;
- --surface:#191f2b;
- --surface2:#222c3b;
- --border:#2b3545;
- --text:#f3f5fa;
- --muted:#a2adbd;
- --blue:#83b5ff;
- --blue2:#253b59;
+ --bg:#f5f5f7;
+ --surface:#ffffff;
+ --text:#1d1d1f;
+ --muted:#6e6e73;
+ --line:#e5e5ea;
+ --accent:#0071e3;
+ --accent-hover:#0077ed;
+ --soft:#f0f0f3;
+ --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.06);
+}
+@media (prefers-color-scheme:dark){
+ :root{
+  --bg:#000;
+  --surface:#1c1c1e;
+  --text:#f5f5f7;
+  --muted:#a1a1a6;
+  --line:#2c2c2e;
+  --accent:#2997ff;
+  --accent-hover:#4aa8ff;
+  --soft:#2c2c2e;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+ }
 }
 
 *{box-sizing:border-box}
-
 html{scroll-behavior:smooth}
-
 body{
- margin:0;
- background:var(--bg);
- color:var(--text);
- font-family:"Cairo",Arial,sans-serif;
- line-height:1.65;
- font-weight:500;
+ margin:0;min-height:100vh;
+ background:var(--bg);color:var(--text);
+ font-family:"Cairo","SF Pro Text","Segoe UI",Tahoma,Arial,sans-serif;
+ font-size:16px;line-height:1.6;
+ -webkit-font-smoothing:antialiased;
 }
+button,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none;padding:0}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:10px}
 
-button,input{font:inherit}
-
-button{cursor:pointer}
-
-.wrap{
- width:min(1120px,calc(100% - 40px));
- margin:auto;
-}
+.wrap{width:min(960px,calc(100% - 40px));margin-inline:auto}
 
 /* HEADER */
-
 header{
- height:76px;
- position:sticky;
- top:0;
- z-index:20;
- background:#10131af2;
- backdrop-filter:blur(15px);
- border-bottom:1px solid var(--border);
+ position:sticky;top:0;z-index:10;
+ background:color-mix(in srgb,var(--bg) 85%,transparent);
+ backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+ border-bottom:1px solid var(--line);
+}
+.bar{position:relative;height:56px;display:flex;align-items:center;justify-content:center}
+.brand{font-size:19px;font-weight:800;letter-spacing:-.02em}
+.lang{position:absolute;inset-inline-end:0;top:50%;transform:translateY(-50%)}
+.lang select{
+ appearance:none;-webkit-appearance:none;
+ border:0;border-radius:10px;background:var(--soft);
+ padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;outline:none;
 }
 
-.header-inner{
- height:100%;
- display:flex;
- align-items:center;
- gap:30px;
+/* HERO */
+.hero{text-align:center;padding:56px 0 36px}
+.hero h1{margin:0 0 8px;font-size:clamp(32px,5vw,44px);font-weight:800;letter-spacing:-.03em}
+.hero p{margin:0;color:var(--muted);font-size:17px}
+
+/* APP LIST */
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;padding-bottom:64px}
+.card{
+ background:var(--surface);border-radius:24px;box-shadow:var(--shadow);
+ padding:22px;display:flex;flex-direction:column;gap:20px;
 }
+.card-main{display:flex;align-items:center;gap:16px;border-radius:14px}
+.card-main:hover .name{color:var(--accent)}
+.card-main h2{margin:0;font-size:19px;font-weight:700}
+.card-main p{margin:2px 0 0;color:var(--muted);font-size:14.5px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
 
-.brand{
- color:white;
- text-decoration:none;
- font-size:23px;
- font-weight:900;
- white-space:nowrap;
+/* ICONS */
+.icon{width:68px;height:68px;border-radius:17px;flex:none;object-fit:cover;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+.ph{
+ width:68px;height:68px;border-radius:17px;flex:none;
+ display:grid;place-items:center;color:#fff;font-size:30px;font-weight:800;
+ background:linear-gradient(145deg,var(--c1),var(--c2));
 }
+.ph.lg{width:112px;height:112px;border-radius:26px;font-size:48px}
+.icon.lg{width:112px;height:112px;border-radius:26px}
 
-.search{
- flex:1;
- max-width:540px;
- height:47px;
- display:flex;
- align-items:center;
- gap:12px;
- padding:0 18px;
- background:#1d2532;
- border:1px solid var(--border);
- border-radius:15px;
+/* BUTTONS */
+.btn{
+ display:inline-flex;align-items:center;justify-content:center;gap:8px;
+ height:42px;padding:0 20px;border-radius:999px;
+ font-size:15px;font-weight:700;white-space:nowrap;
+ transition:background .2s,transform .15s;
 }
+.btn svg{width:18px;height:18px;flex:none}
+.btn:active{transform:scale(.97)}
+.btn-dl{background:var(--accent);color:#fff}
+.btn-dl:hover{background:var(--accent-hover)}
+.btn-dl.off{background:var(--soft);color:var(--muted);pointer-events:none}
+.btn-share{background:var(--soft);color:var(--text)}
+.btn-share:hover{background:var(--line)}
+.btn.big{height:52px;padding:0 28px;font-size:17px}
+.btn.big svg{width:22px;height:22px}
 
-.search:focus-within{
- border-color:#659ce9;
+/* DETAIL */
+.back{display:inline-flex;align-items:center;gap:6px;margin:32px 0 20px;color:var(--accent);font-size:15px;font-weight:600}
+.back svg{width:16px;height:16px}
+[dir="rtl"] .back svg{transform:scaleX(-1)}
+.detail{
+ background:var(--surface);border-radius:28px;box-shadow:var(--shadow);
+ padding:40px;display:flex;align-items:center;gap:32px;flex-wrap:wrap;
 }
-
-.search span{color:var(--blue);font-size:23px}
-
-.search input{
- width:100%;
- border:0;
- outline:0;
- background:transparent;
- color:white;
- font-size:14px;
- font-weight:600;
-}
-
-.search input::placeholder{color:#8995a8}
-
-.header-link{
- margin-right:auto;
- color:var(--muted);
- text-decoration:none;
- font-size:14px;
- font-weight:700;
-}
-
-/* MAIN */
-
-main{padding:30px 0 75px}
-
-.tabs{
- display:flex;
- gap:30px;
- overflow:auto;
- border-bottom:1px solid var(--border);
- margin-bottom:30px;
-}
-
-.tabs a{
- text-decoration:none;
- color:var(--muted);
- white-space:nowrap;
- padding:0 2px 13px;
- font-size:14px;
- font-weight:700;
-}
-
-.tabs a.active{
- color:var(--blue);
- border-bottom:3px solid var(--blue);
-}
-
-h1{
- font-size:29px;
- font-weight:900;
- margin:0 0 5px;
- color:#fff;
-}
-
-.sub{
- color:var(--muted);
- font-size:14px;
- font-weight:600;
- margin:0 0 25px;
-}
-
-/* FEATURED */
-
-.featured{
- display:grid;
- grid-template-columns:1.1fr .9fr;
- min-height:260px;
- overflow:hidden;
- margin-bottom:45px;
- border-radius:23px;
- border:1px solid #30415a;
- background:linear-gradient(115deg,#192638,#233650,#192638);
-}
-
-.feature-copy{
- padding:32px;
- display:flex;
- flex-direction:column;
- align-items:flex-start;
- justify-content:center;
-}
-
-.eyebrow{
- color:#9cc5ff;
- font-size:13px;
- font-weight:800;
- margin-bottom:8px;
-}
-
-.feature-copy h2{
- color:white;
- font-size:30px;
- font-weight:900;
- margin:0 0 8px;
-}
-
-.feature-copy p{
- color:#c0cada;
- font-size:14px;
- font-weight:600;
- margin:0 0 20px;
- max-width:430px;
-}
-
-.primary{
- display:inline-flex;
- justify-content:center;
- align-items:center;
- padding:10px 25px;
- border:0;
- border-radius:12px;
- background:#83b5ff;
- color:#101827;
- text-decoration:none;
- font-size:14px;
- font-weight:900;
- transition:.2s;
-}
-
-.primary:hover{
- background:#a5ccff;
- transform:translateY(-2px);
-}
-
-.feature-art{
- display:grid;
- place-items:center;
- background:radial-gradient(circle,#344f72,#1b293d 75%);
-}
-
-.feature-icon{
- width:120px;
- height:120px;
- object-fit:cover;
- border-radius:27px;
- box-shadow:0 15px 35px #0008;
-}
-
-.placeholder{
- width:120px;
- height:120px;
- display:grid;
- place-items:center;
- background:#263c59;
- color:#a8ccff;
- font-size:45px;
- font-weight:900;
- border-radius:27px;
-}
-
-/* APP GRID */
-
-.section-head{
- display:flex;
- align-items:center;
- justify-content:space-between;
- margin-bottom:19px;
-}
-
-.section-head h2{
- font-size:22px;
- font-weight:900;
- margin:0;
-}
-
-.section-head span{
- color:var(--muted);
- font-size:13px;
- font-weight:700;
-}
-
-.apps{
- display:grid;
- grid-template-columns:repeat(2,minmax(0,1fr));
- gap:15px;
-}
-
-.app{
- display:flex;
- align-items:center;
- gap:15px;
- min-width:0;
- min-height:115px;
- padding:17px;
- background:var(--surface);
- border:1px solid var(--border);
- border-radius:18px;
- transition:.25s;
-}
-
-.app:hover{
- background:#202938;
- border-color:#496b98;
- transform:translateY(-3px);
-}
-
-.app-open{
- display:flex;
- align-items:center;
- gap:15px;
- flex:1;
- min-width:0;
- padding:0;
- border:0;
- background:transparent;
- color:inherit;
- text-align:right;
-}
-
-.app-icon,.app-placeholder{
- width:63px;
- height:63px;
- border-radius:17px;
- flex:none;
- object-fit:cover;
-}
-
-.app-placeholder{
- display:grid;
- place-items:center;
- background:#25364f;
- color:#a8ccff;
- font-size:25px;
- font-weight:900;
-}
-
-.app-info{flex:1;min-width:0}
-
-.app-info h3{
- margin:0 0 3px;
- color:#f5f7fb;
- font-size:16px;
- font-weight:900;
-}
-
-.app-info p{
- margin:0;
- color:#a5b0c0;
- font-size:12px;
- font-weight:600;
- white-space:nowrap;
- overflow:hidden;
- text-overflow:ellipsis;
-}
-
-.app-meta{
- margin-top:5px;
- color:#8492a6;
- font-size:11px;
- font-weight:600;
-}
-
-.app-action{
- padding:7px 15px;
- border:1px solid #45658d;
- background:#243a56;
- color:#a9ceff;
- border-radius:10px;
- font-size:12px;
- font-weight:900;
- white-space:nowrap;
-}
-
-.app-action.disabled{
- background:#252c37;
- border-color:#384251;
- color:#929eae;
-}
-
-.empty{
- display:none;
- grid-column:1/-1;
- text-align:center;
- padding:45px;
- color:var(--muted);
-}
-
-/* APP DETAILS */
-
-#details{
- display:none;
- animation:pageIn .35s ease both;
-}
-
-#details.visible{display:block}
-
-@keyframes pageIn{
- from{opacity:0;transform:translateY(14px)}
- to{opacity:1;transform:translateY(0)}
-}
-
-.back-button{
- display:inline-flex;
- align-items:center;
- gap:9px;
- padding:9px 17px;
- margin-bottom:22px;
- border:1px solid var(--border);
- border-radius:11px;
- background:var(--surface);
- color:var(--text);
- font-size:13px;
- font-weight:800;
-}
-
-.back-button:hover{
- background:var(--surface2);
-}
-
-.detail-card{
- overflow:hidden;
- border:1px solid var(--border);
- border-radius:22px;
- background:var(--surface);
-}
-
-.detail-top{
- display:flex;
- align-items:center;
- gap:24px;
- padding:30px;
- background:linear-gradient(120deg,#1d2c41,#192331);
-}
-
-.detail-icon{
- width:112px;
- height:112px;
- object-fit:cover;
- border-radius:25px;
- box-shadow:0 12px 28px #0006;
- flex:none;
-}
-
-.detail-placeholder{
- width:112px;
- height:112px;
- border-radius:25px;
- display:grid;
- place-items:center;
- background:#2a405e;
- color:#a9ceff;
- font-size:42px;
- font-weight:900;
- flex:none;
-}
-
-.detail-heading h2{
- font-size:28px;
- font-weight:900;
- margin:0 0 4px;
-}
-
-.detail-heading p{
- color:#b5c2d3;
- font-size:13px;
- margin:0;
-}
-
-.detail-body{padding:28px 30px}
-
-.detail-body h3{
- font-size:19px;
- font-weight:900;
- margin:0 0 10px;
-}
-
-.detail-description{
- color:#b5c0d0;
- font-size:14px;
- font-weight:600;
- line-height:2;
- margin:0 0 24px;
-}
-
-.feature-list{
- display:grid;
- grid-template-columns:repeat(2,minmax(0,1fr));
- gap:12px;
- margin-bottom:26px;
-}
-
-.feature-item{
- padding:13px 15px;
- background:#202938;
- border:1px solid #303d50;
- border-radius:12px;
- color:#d8e1ef;
- font-size:13px;
- font-weight:700;
-}
-
-.feature-item::before{
- content:"✓";
- color:var(--blue);
- margin-left:8px;
- font-weight:900;
-}
-
-.detail-download{
- display:inline-flex;
- justify-content:center;
- align-items:center;
- padding:12px 28px;
- border-radius:12px;
- background:#83b5ff;
- color:#101827;
- text-decoration:none;
- font-size:14px;
- font-weight:900;
- transition:.2s;
-}
-
-.detail-download:hover{
- background:#a5ccff;
- transform:translateY(-2px);
-}
-
-.detail-download.disabled{
- background:#303b4b;
- color:#a3afc0;
- cursor:default;
- pointer-events:none;
-}
-
-.detail-status{
- display:block;
- margin-top:12px;
- color:var(--muted);
- font-size:12px;
- font-weight:600;
-}
-
-/* ABOUT & FOOTER */
-
+.detail-info{flex:1;min-width:240px}
+.detail-info h1{margin:0 0 4px;font-size:34px;font-weight:800;letter-spacing:-.02em}
+.detail-info .tag{margin:0 0 22px;color:var(--muted);font-size:17px}
 .about{
- margin-top:50px;
- padding:25px;
- background:var(--surface);
- border:1px solid var(--border);
- border-radius:18px;
+ margin:20px 0 64px;background:var(--surface);border-radius:28px;box-shadow:var(--shadow);
+ padding:32px 40px;
 }
+.about h2{margin:0 0 10px;font-size:18px;font-weight:700}
+.about p{margin:0;color:var(--muted);line-height:1.9}
 
-.about h2{
- margin:0 0 8px;
- font-size:21px;
- font-weight:900;
-}
+footer{padding:28px 0;text-align:center;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
 
-.about p{
- color:var(--muted);
- font-size:14px;
- font-weight:600;
- margin:0;
+/* TOAST */
+.toast{
+ position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+ background:#1d1d1f;color:#fff;padding:10px 20px;border-radius:999px;font-size:14px;
+ opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;
 }
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-footer{
- border-top:1px solid var(--border);
- padding:25px 0;
- color:var(--muted);
- font-size:12px;
- font-weight:600;
+/* SEARCH */
+.sbtn{
+ position:absolute;inset-inline-start:0;top:50%;transform:translateY(-50%);
+ width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+ color:var(--muted);background:var(--soft);
 }
-
-.footer-inner{
- display:flex;
- justify-content:space-between;
- gap:15px;
- flex-wrap:wrap;
+.sbtn:hover{color:var(--text)}
+.sbtn svg{width:16px;height:16px}
+.searchbar{padding:0 0 12px}
+.searchbar input{
+ width:100%;height:38px;border:0;border-radius:12px;outline:none;
+ background:var(--surface);box-shadow:var(--shadow);
+ padding:0 16px;font:inherit;font-size:15px;color:var(--text);
 }
+.none{grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 0}
 
 /* MOBILE */
-
-@media(max-width:700px){
-
- .wrap{width:calc(100% - 30px)}
-
- header{height:auto;min-height:68px}
-
- .header-inner{
-  gap:13px;
-  flex-wrap:wrap;
-  padding:12px 0;
- }
-
- .brand{font-size:20px}
-
- .search{
-  order:2;
-  flex-basis:100%;
-  max-width:none;
-  height:44px;
- }
-
- .header-link{display:none}
-
- main{padding-top:20px}
-
- .tabs{gap:23px;margin-bottom:25px}
-
- h1{font-size:23px}
-
- .featured{
-  grid-template-columns:1fr;
-  min-height:auto;
- }
-
- .feature-art{
-  height:155px;
-  order:1;
- }
-
- .feature-copy{
-  padding:23px;
-  order:2;
- }
-
- .feature-copy h2{font-size:25px}
-
- .feature-icon,.placeholder{
-  width:95px;
-  height:95px;
-  border-radius:23px;
- }
-
- .apps{
-  grid-template-columns:1fr;
-  gap:12px;
- }
-
- .app{
-  min-height:103px;
-  padding:14px;
-  gap:10px;
-  border-radius:16px;
- }
-
- .app-open{gap:12px}
-
- .app-icon,.app-placeholder{
-  width:55px;
-  height:55px;
-  border-radius:14px;
- }
-
- .app-info h3{font-size:15px}
-
- .app-action{padding:7px 12px}
-
- .detail-top{
-  padding:22px;
-  gap:16px;
- }
-
- .detail-icon,.detail-placeholder{
-  width:82px;
-  height:82px;
-  border-radius:19px;
- }
-
- .detail-heading h2{font-size:23px}
-
- .detail-body{padding:22px}
-
- .feature-list{grid-template-columns:1fr}
-
- .about{padding:20px}
+@media (max-width:680px){
+ .wrap{width:calc(100% - 28px)}
+ .grid{grid-template-columns:1fr;gap:14px}
+ .hero{padding:40px 0 28px}
+ .detail{padding:26px;flex-direction:column;text-align:center;align-items:center}
+ .detail-info{min-width:0}
+ .detail .actions{justify-content:center}
+ .about{padding:24px}
+ .btn.big{width:100%}
+ .detail .actions .btn{flex:1 1 auto}
 }
-
-@media(prefers-reduced-motion:reduce){
- *,*::before,*::after{
-  scroll-behavior:auto!important;
-  animation-duration:.01ms!important;
-  transition-duration:.01ms!important;
- }
-}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 
 <body>
 
 <header>
- <div class="wrap header-inner">
-
-  <a class="brand" href="#" id="brandHome">SariToolset</a>
-
-  <label class="search">
-   <span aria-hidden="true">⌕</span>
-   <input
-    id="search"
-    type="search"
-    placeholder="ابحث عن التطبيقات"
-    aria-label="ابحث عن التطبيقات"
-   >
-  </label>
-
-  <a class="header-link" href="#apps" id="headerApps">التطبيقات</a>
-
+ <div class="wrap bar">
+  <button class="sbtn" id="sbtn" type="button" aria-label="Search">
+   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+  </button>
+  <a class="brand" href="#">SariToolset</a>
+  <div class="lang"><select id="lang" aria-label="Language"></select></div>
+ </div>
+ <div class="searchbar" id="searchbar" hidden>
+  <input id="q" type="search" autocomplete="off" placeholder="…">
  </div>
 </header>
 
 <main class="wrap">
 
- <nav class="tabs" id="navigation">
-  <a class="active" href="#home" data-tab="home">الرئيسية</a>
-  <a href="#apps" data-tab="apps">التطبيقات</a>
-  <a href="#about" data-tab="about">حول المتجر</a>
- </nav>
-
- <!-- HOME -->
-
- <div id="homePage">
-
-  <section id="home">
-
-   <h1>اكتشف تطبيقات SariToolset</h1>
-
-   <p class="sub">
-    أدوات عملية وتجارب مختلفة، في مكان واحد.
-   </p>
-
-   <article class="featured">
-
-    <div class="feature-copy">
-
-     <div class="eyebrow">التطبيق المميز</div>
-
-     <h2>Sari VPN</h2>
-
-     <p>
-      اتصال VPN سهل الاستخدام من SariToolset.
-      تعرّف على التطبيق وحمّله مباشرة.
-     </p>
-
-     <button class="primary" onclick="openApp('vpn')">
-      اكتشف التطبيق
-     </button>
-
-    </div>
-
-    <div class="feature-art">
-
-     <img
-      class="feature-icon"
-      src="sari-vpn-icon-512.png"
-      alt="Sari VPN"
-      onerror="this.replaceWith(makePlaceholder('S'))"
-     >
-
-    </div>
-
-   </article>
-
-  </section>
-
-  <!-- APPS -->
-
-  <section id="apps">
-
-   <div class="section-head">
-    <h2>جميع التطبيقات</h2>
-    <span id="count">4 تطبيقات</span>
-   </div>
-
-   <div class="apps" id="appList">
-
-    <!-- VPN -->
-
-    <article class="app" data-name="sari vpn vpn حماية اتصال خصوصية">
-
-     <button class="app-open" onclick="openApp('vpn')">
-
-      <img
-       class="app-icon"
-       src="sari-vpn-icon-512.png"
-       alt="Sari VPN"
-       onerror="this.replaceWith(makePlaceholder('S'))"
-      >
-
-      <div class="app-info">
-       <h3>Sari VPN</h3>
-       <p>اتصال VPN وأدوات الخصوصية</p>
-       <div class="app-meta">أدوات · Android</div>
-      </div>
-
-     </button>
-
-     <span class="app-action">التفاصيل</span>
-
-    </article>
-
-    <!-- DUB -->
-
-    <article class="app" data-name="sari dub ترجمة فيديو ترجمة">
-
-     <button class="app-open" onclick="openApp('dub')">
-
-      <div class="app-placeholder">D</div>
-
-      <div class="app-info">
-       <h3>SARI DUB</h3>
-       <p>ترجمة ودبلجة الفيديوهات</p>
-       <div class="app-meta">وسائط · Android</div>
-      </div>
-
-     </button>
-
-     <span class="app-action">التفاصيل</span>
-
-    </article>
-
-    <!-- IDE -->
-
-    <article class="app" data-name="sari ide برمجة محرر اكواد تطوير">
-
-     <button class="app-open" onclick="openApp('ide')">
-
-      <div class="app-placeholder">I</div>
-
-      <div class="app-info">
-       <h3>SARI IDE</h3>
-       <p>بيئة تطوير وأدوات برمجية</p>
-       <div class="app-meta">أدوات المطورين · Android</div>
-      </div>
-
-     </button>
-
-     <span class="app-action">التفاصيل</span>
-
-    </article>
-
-    <!-- ASTRO -->
-
-    <article class="app" data-name="sari astro فلك تصوير نجوم تكديس صور">
-
-     <button class="app-open" onclick="openApp('astro')">
-
-      <img
-       class="app-icon"
-       src="Sari%20astro_2.jpg"
-       alt="SARI Astro"
-       onerror="this.replaceWith(makePlaceholder('A'))"
-      >
-
-      <div class="app-info">
-       <h3>SARI Astro</h3>
-       <p>التصوير الفلكي ومعالجة الصور</p>
-       <div class="app-meta">تصوير فلكي · Android</div>
-      </div>
-
-     </button>
-
-     <span class="app-action">التفاصيل</span>
-
-    </article>
-
-    <div class="empty" id="empty">
-     لا توجد تطبيقات تطابق بحثك.
-    </div>
-
-   </div>
-
-  </section>
-
-  <!-- ABOUT -->
-
-  <section id="about" class="about">
-
-   <h2>عن SariToolset</h2>
-
-   <p>
-    مجموعة من التطبيقات والأدوات التي تطورها SariToolset
-    لتقديم تجارب بسيطة وعملية.
-    يتم نشر روابط التحميل ومعلومات الإصدارات هنا عند توفرها.
-   </p>
-
-  </section>
-
- </div>
-
- <!-- APPLICATION DETAILS -->
-
- <section id="details">
-
-  <button class="back-button" onclick="backToApps()">
-   ← العودة إلى التطبيقات
-  </button>
-
-  <div class="detail-card">
-
-   <div class="detail-top">
-
-    <div id="detailIcon"></div>
-
-    <div class="detail-heading">
-     <h2 id="detailName"></h2>
-     <p id="detailCategory"></p>
-    </div>
-
-   </div>
-
-   <div class="detail-body">
-
-    <h3>عن التطبيق</h3>
-
-    <p class="detail-description" id="detailDescription"></p>
-
-    <h3>مميزات التطبيق</h3>
-
-    <div class="feature-list" id="detailFeatures"></div>
-
-    <a id="detailDownload" class="detail-download" href="#">
-     تحميل التطبيق
-    </a>
-
-    <span class="detail-status" id="detailStatus"></span>
-
-   </div>
-
+ <!-- LIST -->
+ <section id="list">
+  <div class="hero">
+   <h1 data-k="heroTitle"></h1>
+   <p data-k="heroSub"></p>
   </div>
+  <div class="grid" id="grid"></div>
+ </section>
 
+ <!-- DETAIL -->
+ <section id="detail" hidden>
+  <a class="back" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg><span data-k="back"></span></a>
+  <div class="detail" id="detailCard"></div>
+  <div class="about"><p id="detailDesc"></p></div>
  </section>
 
 </main>
 
-<footer>
- <div class="wrap footer-inner">
-  <span>© <span id="year"></span> SariToolset</span>
-  <span>متجر تطبيقات SariToolset</span>
- </div>
-</footer>
+<footer>© <span id="year"></span> SariToolset · <span data-k="rights"></span></footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
+/* ───────── LANGUAGES ───────── */
 
-/* APP DATA */
-
-const apps = {
-
- vpn:{
-  name:"Sari VPN",
-  category:"أدوات الاتصال والخصوصية · Android",
-  icon:"sari-vpn-icon-512.png",
-  description:
-   "تطبيق Sari VPN من مجموعة SariToolset، يوفر واجهة سهلة لإدارة اتصال VPN والوصول إلى إعدادات الاتصال والخوادم المتاحة داخل التطبيق.",
-  features:[
-   "واجهة سهلة الاستخدام",
-   "إدارة إعدادات الاتصال",
-   "دعم إعدادات الخوادم",
-   "تصميم مناسب للهاتف"
-  ],
-  download:"https://drive.google.com/uc?export=download&id=1REdf44l_SuUdrhzvTJJ1b7ax3i3wCu1B",
-  available:true
- },
-
- dub:{
-  name:"SARI DUB",
-  category:"الترجمة والوسائط · Android",
-  icon:null,
-  letter:"D",
-  description:
-   "تطبيق لترجمة ودبلجة الفيديوهات، يهدف إلى تسهيل تحويل المحتوى إلى لغات مختلفة مع أدوات للتعامل مع ملفات الترجمة والصوت.",
-  features:[
-   "ترجمة الفيديوهات",
-   "إنشاء ملفات SRT",
-   "التعامل مع الصوت",
-   "أدوات الدبلجة"
-  ],
-  download:null,
-  available:false
- },
-
- ide:{
-  name:"SARI IDE",
-  category:"أدوات المطورين والبرمجة · Android",
-  icon:null,
-  letter:"I",
-  description:
-   "بيئة تطوير مخصصة للهاتف من مجموعة SariToolset، توفر مساحة للعمل مع المشاريع البرمجية وكتابة الأكواد وأدوات التطوير.",
-  features:[
-   "تحرير الأكواد",
-   "إدارة المشاريع",
-   "أدوات المطورين",
-   "واجهة مناسبة للهاتف"
-  ],
-  download:null,
-  available:false
- },
-
- astro:{
-  name:"SARI Astro",
-  category:"التصوير الفلكي ومعالجة الصور · Android",
-  icon:"Sari%20astro_2.jpg",
-  letter:"A",
-  description:
-   "SARI Astro تطبيق للتصوير الفلكي ومعالجة صور السماء. يساعد على التقاط صور الأجرام السماوية وتحسين التفاصيل باستخدام محاذاة الصور وتقنيات التكديس، بهدف إبراز النجوم والتفاصيل الفلكية بصورة أوضح.",
-  features:[
-   "التصوير الفلكي",
-   "استيراد الصور لمعالجتها",
-   "محاذاة الصور الفلكية",
-   "تكديس الصور Stacking",
-   "تحسين تفاصيل النجوم",
-   "معالجة الصور الفلكية"
-  ],
-  download:"https://drive.google.com/uc?export=download&id=1hGxBrTKxnPPfu4ROkq5B-Fcq2ILM4CgG",
-  available:true
- }
-
+const LANGS = {
+ ar:{label:"العربية",dir:"rtl"},
+ en:{label:"English",dir:"ltr"},
+ fr:{label:"Français",dir:"ltr"},
+ tr:{label:"Türkçe",dir:"ltr"}
 };
 
-/* ELEMENTS */
-
-const homePage=document.getElementById("homePage");
-const details=document.getElementById("details");
-
-const detailIcon=document.getElementById("detailIcon");
-const detailName=document.getElementById("detailName");
-const detailCategory=document.getElementById("detailCategory");
-const detailDescription=document.getElementById("detailDescription");
-const detailFeatures=document.getElementById("detailFeatures");
-const detailDownload=document.getElementById("detailDownload");
-const detailStatus=document.getElementById("detailStatus");
-
-/* PLACEHOLDER */
-
-function makePlaceholder(letter){
-
- const div=document.createElement("div");
- div.className="app-placeholder";
- div.textContent=letter;
-
- return div;
-}
-
-/* OPEN APP DETAILS */
-
-function openApp(id){
-
- const app=apps[id];
-
- if(!app)return;
-
- homePage.style.display="none";
-
- details.classList.remove("visible");
-
- detailIcon.replaceChildren();
-
- if(app.icon){
-
-  const img=document.createElement("img");
-
-  img.src=app.icon;
-  img.alt=app.name;
-  img.className="detail-icon";
-
-  img.onerror=()=>{
-   img.replaceWith(makePlaceholder(app.letter||"S"));
-  };
-
-  detailIcon.appendChild(img);
-
- }else{
-
-  const placeholder=makePlaceholder(app.letter||"S");
-  placeholder.className="detail-placeholder";
-
-  detailIcon.appendChild(placeholder);
-
- }
-
- detailName.textContent=app.name;
- detailCategory.textContent=app.category;
- detailDescription.textContent=app.description;
-
- detailFeatures.replaceChildren();
-
- app.features.forEach(feature=>{
-
-  const item=document.createElement("div");
-
-  item.className="feature-item";
-  item.textContent=feature;
-
-  detailFeatures.appendChild(item);
-
- });
-
- if(app.available && app.download){
-
-  detailDownload.href=app.download;
-  detailDownload.classList.remove("disabled");
-  detailDownload.textContent="تحميل التطبيق";
-  detailDownload.style.display="inline-flex";
-  detailStatus.textContent="رابط التحميل متاح.";
-
- }else{
-
-  detailDownload.removeAttribute("href");
-  detailDownload.classList.add("disabled");
-  detailDownload.textContent="قريباً";
-  detailDownload.style.display="inline-flex";
-  detailStatus.textContent="سيتم توفير رابط التحميل عند صدور التطبيق.";
-
- }
-
- details.style.display="block";
-
- requestAnimationFrame(()=>{
-  details.classList.add("visible");
- });
-
- window.scrollTo({
-  top:0,
-  behavior:"smooth"
- });
-
-}
-
-/* BACK TO APPS */
-
-function backToApps(){
-
- details.classList.remove("visible");
-
- setTimeout(()=>{
-
-  details.style.display="none";
-  homePage.style.display="block";
-
-  document.getElementById("apps").scrollIntoView({
-   behavior:"smooth"
-  });
-
- },180);
-
-}
-
-/* SEARCH */
-
-const search=document.getElementById("search");
-
-const cards=[...document.querySelectorAll(".app")];
-
-const empty=document.getElementById("empty");
-const count=document.getElementById("count");
-
-search.addEventListener("input",()=>{
-
- const q=search.value.trim().toLocaleLowerCase();
-
- let n=0;
-
- cards.forEach(card=>{
-
-  const show=card.dataset.name.includes(q);
-
-  card.style.display=show?"flex":"none";
-
-  if(show)n++;
-
- });
-
- empty.style.display=n?"none":"block";
-
- count.textContent=n+" تطبيقات";
-
-});
-
-/* NAVIGATION */
-
-document.querySelectorAll("[data-tab]").forEach(tab=>{
-
- tab.addEventListener("click",()=>{
-
-  document.querySelectorAll("[data-tab]").forEach(item=>{
-   item.classList.remove("active");
-  });
-
-  tab.classList.add("active");
-
-  if(tab.dataset.tab==="home"){
-   backToHome();
+const UI = {
+ ar:{heroTitle:"تطبيقاتنا",heroSub:"تطبيقات بسيطة وعملية من SariToolset.",download:"تحميل",share:"مشاركة",soon:"قريباً",back:"رجوع",copied:"تم نسخ رابط التطبيق",rights:"جميع الحقوق محفوظة",unavailable:"الملف غير متوفر حالياً، حاول لاحقاً",none:"لا توجد نتائج"},
+ en:{heroTitle:"Our apps",heroSub:"Simple, practical apps from SariToolset.",download:"Download",share:"Share",soon:"Coming soon",back:"Back",copied:"App link copied",rights:"All rights reserved",unavailable:"File not available yet, please try later",none:"No results"},
+ fr:{heroTitle:"Nos applications",heroSub:"Des applications simples et pratiques signées SariToolset.",download:"Télécharger",share:"Partager",soon:"Bientôt",back:"Retour",copied:"Lien copié",rights:"Tous droits réservés",unavailable:"Fichier indisponible pour le moment",none:"Aucun résultat"},
+ tr:{heroTitle:"Uygulamalarımız",heroSub:"SariToolset'ten basit ve pratik uygulamalar.",download:"İndir",share:"Paylaş",soon:"Yakında",back:"Geri",copied:"Bağlantı kopyalandı",rights:"Tüm hakları saklıdır",unavailable:"Dosya şu an kullanılamıyor, daha sonra deneyin",none:"Sonuç bulunamadı"}
+};
+
+/* ───────── APPS ─────────
+   file: path to the APK on the same host (upload it next to this page in /downloads).
+   Set file:null for apps not released yet.                                        */
+
+const APPS = [
+ {
+  id:"vpn", name:"Sari VPN", icon:"sari-vpn-icon-512.png", letter:"S",
+  c:["#0a84ff","#5e5ce6"], file:"downloads/sari-vpn.apk",
+  alt:"https://drive.google.com/uc?export=download&id=1REdf44l_SuUdrhzvTJJ1b7ax3i3wCu1B",
+  txt:{
+   ar:["اتصال VPN وأدوات الخصوصية","تطبيق Sari VPN من مجموعة SariToolset، يوفر واجهة سهلة لإدارة اتصال VPN والوصول إلى إعدادات الاتصال والخوادم المتاحة داخل التطبيق."],
+   en:["VPN connection and privacy tools","Sari VPN, from the SariToolset family, offers a simple interface to manage your VPN connection and access connection settings and available servers within the app."],
+   fr:["Connexion VPN et outils de confidentialité","Sari VPN, de la famille SariToolset, offre une interface simple pour gérer votre connexion VPN et accéder aux paramètres et serveurs disponibles."],
+   tr:["VPN bağlantısı ve gizlilik araçları","SariToolset ailesinden Sari VPN, VPN bağlantınızı yönetmek ve uygulama içindeki sunuculara erişmek için basit bir arayüz sunar."]
   }
+ },
+ {
+  id:"dub", name:"SARI DUB", icon:null, letter:"D",
+  c:["#ff9f0a","#ff375f"], file:null,
+  txt:{
+   ar:["ترجمة ودبلجة الفيديوهات","تطبيق لترجمة ودبلجة الفيديوهات، يسهّل تحويل المحتوى إلى لغات مختلفة مع أدوات لملفات الترجمة والصوت."],
+   en:["Translate and dub your videos","An app for translating and dubbing videos, making it easier to convert content into different languages with subtitle and audio tools."],
+   fr:["Traduire et doubler vos vidéos","Une application pour traduire et doubler des vidéos, avec des outils pour les sous-titres et l’audio."],
+   tr:["Videolarınızı çevirin ve seslendirin","Videoları çevirmek ve seslendirmek için bir uygulama. Altyazı ve ses dosyaları için araçlar içerir."]
+  }
+ },
+ {
+  id:"ide", name:"SARI IDE", icon:null, letter:"I",
+  c:["#34c759","#0fa3b1"], file:null,
+  txt:{
+   ar:["بيئة تطوير وأدوات برمجية","بيئة تطوير مخصصة للهاتف من مجموعة SariToolset، لكتابة الأكواد وإدارة المشاريع البرمجية."],
+   en:["Development environment and coding tools","A mobile development environment from SariToolset for writing code and managing software projects."],
+   fr:["Environnement de développement et outils de code","Un environnement de développement mobile signé SariToolset, pour écrire du code et gérer vos projets."],
+   tr:["Geliştirme ortamı ve kod araçları","SariToolset'in telefon için geliştirme ortamı; kod yazmak ve yazılım projelerini yönetmek için."]
+  }
+ },
+ {
+  id:"astro", name:"SARI Astro", icon:"Sari%20astro_2.jpg", letter:"A",
+  c:["#5e5ce6","#1c1a4d"], file:"downloads/sari-astro.apk",
+  alt:"https://drive.google.com/uc?export=download&id=1hGxBrTKxnPPfu4ROkq5B-Fcq2ILM4CgG",
+  txt:{
+   ar:["التصوير الفلكي ومعالجة الصور","SARI Astro تطبيق للتصوير الفلكي ومعالجة صور السماء. يستخدم محاذاة الصور وتقنيات التكديس لإبراز النجوم والتفاصيل الفلكية بوضوح."],
+   en:["Astrophotography and image processing","SARI Astro is an app for astrophotography and sky image processing. It uses image alignment and stacking to bring out stars and astronomical detail."],
+   fr:["Astrophotographie et traitement d’images","SARI Astro est une application d’astrophotographie. Alignement et empilement d’images mettent en valeur les étoiles et les détails célestes."],
+   tr:["Astrofotoğrafçılık ve görüntü işleme","SARI Astro, gökyüzü görüntülerini işleyen bir astrofotoğrafçılık uygulamasıdır. Hizalama ve yığınlama ile yıldızları ve detayları netleştirir."]
+  }
+ }
+];
 
- });
+const ICON_DL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5v12"/><path d="M6.5 10.5L12 16l5.5-5.5"/><path d="M4 20.5h16"/></svg>';
+const ICON_SHARE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3.5"/><path d="M7.5 8L12 3.5 16.5 8"/><path d="M8 12.5H6.5a2 2 0 0 0-2 2V19a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-4.5a2 2 0 0 0-2-2H16"/></svg>';
 
-});
+/* ───────── STATE ───────── */
 
-function backToHome(){
+const $ = id => document.getElementById(id);
+let lang = "en";
+const t = k => UI[lang][k];
 
- details.style.display="none";
- details.classList.remove("visible");
-
- homePage.style.display="block";
-
- window.scrollTo({
-  top:0,
-  behavior:"smooth"
- });
-
+function detectLang(){
+ try{
+  const saved = localStorage.getItem("sari-lang");
+  if(saved && UI[saved]) return saved;
+ }catch(e){}
+ const list = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "en"];
+ for(const l of list){
+  const code = String(l).slice(0,2).toLowerCase();
+  if(UI[code]) return code;
+ }
+ return "en";
 }
 
-document.getElementById("brandHome").addEventListener("click",e=>{
+/* ───────── BUILDERS ───────── */
+
+function makeArt(app, large){
+ if(app.icon){
+  const img = new Image();
+  img.src = app.icon;
+  img.alt = app.name;
+  img.className = large ? "icon lg" : "icon";
+  img.onerror = () => img.replaceWith(makeLetter(app, large));
+  return img;
+ }
+ return makeLetter(app, large);
+}
+
+function makeLetter(app, large){
+ const d = document.createElement("div");
+ d.className = large ? "ph lg" : "ph";
+ d.style.setProperty("--c1", app.c[0]);
+ d.style.setProperty("--c2", app.c[1]);
+ d.textContent = app.letter;
+ d.setAttribute("aria-hidden","true");
+ return d;
+}
+
+function makeActions(app, big){
+ const wrap = document.createElement("div");
+ wrap.className = "actions";
+ const size = big ? " big" : "";
+
+ if(app.file){
+  const a = document.createElement("a");
+  a.className = "btn btn-dl" + size;
+  a.href = app.file;
+  a.setAttribute("download", "");
+  a.innerHTML = ICON_DL + "<span>" + t("download") + "</span>";
+  a.addEventListener("click", e => startDownload(app, e));
+  wrap.appendChild(a);
+ }else{
+  const s = document.createElement("span");
+  s.className = "btn btn-dl off" + size;
+  s.textContent = t("soon");
+  wrap.appendChild(s);
+ }
+
+ const sh = document.createElement("button");
+ sh.type = "button";
+ sh.className = "btn btn-share" + size;
+ sh.innerHTML = ICON_SHARE + "<span>" + t("share") + "</span>";
+ sh.addEventListener("click", () => shareApp(app));
+ wrap.appendChild(sh);
+
+ return wrap;
+}
+
+/* ───────── DOWNLOAD ───────── */
+
+async function startDownload(app, e){
  e.preventDefault();
- backToHome();
+ let missing = false;
+ try{
+  const r = await fetch(app.file, {method:"HEAD", cache:"no-store"});
+  missing = r.status === 404;
+ }catch(err){
+  missing = false;
+ }
+
+ if(missing){
+  if(app.alt){ window.open(app.alt, "_blank", "noopener"); }
+  else{ toast(t("unavailable")); }
+  return;
+ }
+
+ const l = document.createElement("a");
+ l.href = app.file;
+ l.setAttribute("download", "");
+ document.body.appendChild(l);
+ l.click();
+ l.remove();
+}
+
+/* ───────── SHARE ───────── */
+
+function appUrl(app){
+ return location.href.split("#")[0] + "#" + app.id;
+}
+
+async function shareApp(app){
+ const url = appUrl(app);
+ if(navigator.share){
+  try{
+   await navigator.share({title: app.name, text: app.name + " — SariToolset", url});
+   return;
+  }catch(e){
+   if(e && e.name === "AbortError") return;
+  }
+ }
+ try{
+  await navigator.clipboard.writeText(url);
+  toast(t("copied"));
+ }catch(e){
+  toast(url);
+ }
+}
+
+let toastTimer;
+function toast(msg){
+ const el = $("toast");
+ el.textContent = msg;
+ el.classList.add("show");
+ clearTimeout(toastTimer);
+ toastTimer = setTimeout(() => el.classList.remove("show"), 2400);
+}
+
+/* ───────── RENDER ───────── */
+
+function renderList(){
+ const grid = $("grid");
+ grid.replaceChildren();
+ const q = ($("q").value || "").trim().toLowerCase();
+ APPS.filter(app => (app.name + " " + app.txt[lang][0]).toLowerCase().includes(q)).forEach(app => {
+  const card = document.createElement("article");
+  card.className = "card";
+
+  const main = document.createElement("a");
+  main.className = "card-main";
+  main.href = "#" + app.id;
+  main.appendChild(makeArt(app, false));
+
+  const info = document.createElement("div");
+  const h = document.createElement("h2");
+  h.className = "name";
+  h.textContent = app.name;
+  const p = document.createElement("p");
+  p.textContent = app.txt[lang][0];
+  info.append(h, p);
+  main.appendChild(info);
+
+  card.append(main, makeActions(app, false));
+  grid.appendChild(card);
+ });
+ if(!grid.children.length){
+  const p = document.createElement("p");
+  p.className = "none";
+  p.textContent = t("none");
+  grid.appendChild(p);
+ }
+}
+
+function renderDetail(app){
+ const box = $("detailCard");
+ box.replaceChildren();
+ box.appendChild(makeArt(app, true));
+
+ const info = document.createElement("div");
+ info.className = "detail-info";
+ const h = document.createElement("h1");
+ h.textContent = app.name;
+ const tag = document.createElement("p");
+ tag.className = "tag";
+ tag.textContent = app.txt[lang][0];
+ info.append(h, tag, makeActions(app, true));
+ box.appendChild(info);
+
+ $("detailDesc").textContent = app.txt[lang][1];
+}
+
+function route(){
+ const app = APPS.find(a => a.id === location.hash.slice(1));
+ $("list").hidden = !!app;
+ $("detail").hidden = !app;
+ if(app){
+  renderDetail(app);
+  document.title = app.name + " — SariToolset";
+  window.scrollTo({top:0});
+ }else{
+  renderList();
+  document.title = "SariToolset";
+ }
+}
+
+/* ───────── LANGUAGE ───────── */
+
+function applyLang(code, save){
+ lang = UI[code] ? code : "en";
+ document.documentElement.lang = lang;
+ document.documentElement.dir = LANGS[lang].dir;
+ document.querySelectorAll("[data-k]").forEach(el => el.textContent = t(el.dataset.k));
+ $("lang").value = lang;
+ if(save){ try{ localStorage.setItem("sari-lang", lang); }catch(e){} }
+ route();
+}
+
+function buildLangOptions(){
+ const sel = $("lang");
+ Object.entries(LANGS).forEach(([code, m]) => {
+  const o = document.createElement("option");
+  o.value = code;
+  o.textContent = m.label;
+  sel.appendChild(o);
+ });
+ sel.addEventListener("change", e => applyLang(e.target.value, true));
+}
+
+/* ───────── INIT ───────── */
+
+window.addEventListener("hashchange", route);
+
+$("sbtn").addEventListener("click", () => {
+ const bar = $("searchbar");
+ bar.hidden = !bar.hidden;
+ if(!bar.hidden){
+  $("q").focus();
+ }else{
+  $("q").value = "";
+  renderList();
+ }
 });
-
-document.getElementById("headerApps").addEventListener("click",e=>{
- e.preventDefault();
- backToApps();
+$("q").addEventListener("input", renderList);
+$("q").addEventListener("keydown", e => {
+ if(e.key === "Escape"){
+  $("searchbar").hidden = true;
+  $("q").value = "";
+  renderList();
+ }
 });
-
-document.getElementById("year").textContent=
- new Date().getFullYear();
-
+buildLangOptions();
+$("year").textContent = new Date().getFullYear();
+applyLang(detectLang(), false);
 </script>
 
 </body>
